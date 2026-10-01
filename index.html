@@ -3,195 +3,205 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Phonker — боты, сайты и мини-игры под ключ</title>
-<meta name="description" content="Telegram-боты, сайты-расписания, браузерные игры. Довожу проекты до рабочего состояния: деплой, API, база.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2312161c'/%3E%3Cpath d='M9 24V8h8a5 5 0 0 1 0 10H9' fill='none' stroke='%237aa2ff' stroke-width='3'/%3E%3C/svg%3E">
+<title>Phonker — Telegram-боты, сайты и игры</title>
+<meta name="description" content="Telegram-боты, сайты-расписания, браузерные игры. От идеи до запуска: деплой, API, база данных.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238b5cf6'/%3E%3Cpath d='M10 24V8h7a5 5 0 0 1 0 10h-7' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E">
 <style>
 :root{
-  --bg:#12161c; --panel:#1a2029; --line:#2a3340;
-  --text:#e9ecef; --muted:#9aa5b4; --accent:#7aa2ff; --accent-ink:#0b1220;
+  --bg:#0e0a1a; --panel:#17112b; --line:#2d2250;
+  --text:#f1ecff; --muted:#a79bc9; --a:#8b5cf6; --a2:#c084fc;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
 body{
-  margin:0; background:var(--bg); color:var(--text);
-  font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  -webkit-font-smoothing:antialiased;
+  margin:0;background:var(--bg);color:var(--text);
+  font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
 }
 a{color:inherit}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
-.wrap{max-width:860px;margin:0 auto;padding:0 20px}
-section{padding:56px 0;border-top:1px solid var(--line)}
-h1,h2,h3{line-height:1.15;margin:0}
-h2{font-size:28px;letter-spacing:-.01em;margin-bottom:28px}
-h3{font-size:19px}
-p{margin:0}
+:focus-visible{outline:2px solid var(--a2);outline-offset:3px;border-radius:6px}
+h1,h2,h3,p{margin:0}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+
+/* живой фон: два мягких пятна */
+.glow{position:fixed;border-radius:50%;filter:blur(90px);opacity:.45;pointer-events:none;z-index:0;will-change:transform}
+.g1{width:520px;height:520px;background:#7c3aed;top:-160px;left:-120px;animation:drift1 18s ease-in-out infinite alternate}
+.g2{width:440px;height:440px;background:#c026d3;bottom:-160px;right:-120px;opacity:.28;animation:drift2 22s ease-in-out infinite alternate}
+@keyframes drift1{to{transform:translate(160px,120px)}}
+@keyframes drift2{to{transform:translate(-140px,-100px)}}
 
 /* шапка */
-.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
-.logo{font-weight:800;font-size:20px;text-decoration:none;letter-spacing:-.01em}
+.top{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.logo{font-weight:800;font-size:19px;text-decoration:none}
+.logo b{color:var(--a2)}
 .top nav{display:flex;gap:22px}
-.top nav a{color:var(--muted);text-decoration:none;font-size:15px}
-.top nav a:hover{color:var(--text)}
-.hero{padding:56px 0 72px}
-.hero h1{font-size:clamp(34px,7vw,60px);letter-spacing:-.025em;max-width:16ch}
-.hero p{color:var(--muted);margin-top:22px;max-width:46ch;font-size:19px}
-.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.top nav a{color:var(--muted);text-decoration:none;font-size:14px;transition:color .2s}
+.top nav a:hover{color:#fff}
 
 /* кнопки */
 .btn{
-  display:inline-block;padding:12px 20px;border-radius:10px;font-weight:600;font-size:15px;
-  text-decoration:none;border:1px solid var(--line);color:var(--text);background:transparent;
-  transition:border-color .15s,background .15s;
+  display:inline-block;padding:11px 18px;border-radius:10px;font-weight:600;font-size:14px;
+  text-decoration:none;border:1px solid var(--line);background:rgba(23,17,43,.6);
+  transition:transform .2s,border-color .2s,box-shadow .2s;
 }
-.btn:hover{border-color:var(--accent)}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.btn.primary:hover{background:#94b4ff;border-color:#94b4ff}
-.btn.small{padding:9px 15px;font-size:14px}
+.btn:hover{border-color:var(--a2);transform:translateY(-2px)}
+.btn.p{background:linear-gradient(135deg,var(--a),#a855f7);border-color:transparent;box-shadow:0 6px 24px rgba(139,92,246,.35)}
+.btn.p:hover{box-shadow:0 8px 32px rgba(168,85,247,.6)}
 
-/* услуги */
-.services{list-style:none;margin:0;padding:0}
-.services li{
-  display:grid;grid-template-columns:1fr auto;gap:6px 24px;
-  padding:20px 0;border-bottom:1px solid var(--line);
+/* hero: одна последовательность появления */
+.hero{padding:36px 0 40px}
+.hero h1{font-size:clamp(32px,6vw,54px);line-height:1.1;letter-spacing:-.025em;max-width:18ch}
+.hero p{color:var(--muted);margin-top:16px;max-width:50ch;font-size:17px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.hero h1,.hero p,.actions{opacity:0;animation:up .6s cubic-bezier(.2,.7,.2,1) forwards}
+.hero p{animation-delay:.12s}.actions{animation-delay:.24s}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* услуги + примеры */
+.work{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:18px;padding:8px 0 36px}
+.list{display:flex;flex-direction:column;gap:8px}
+.svc{
+  text-align:left;font:inherit;color:inherit;cursor:pointer;
+  background:rgba(23,17,43,.55);border:1px solid var(--line);border-radius:12px;
+  padding:14px 16px;display:grid;gap:2px;
+  transition:border-color .2s,background .2s,transform .2s;
 }
-.services li:first-child{padding-top:0}
-.services li:last-child{border-bottom:0;padding-bottom:0}
-.services p{color:var(--muted);font-size:15px;grid-column:1}
-.price{color:var(--accent);font-weight:600;white-space:nowrap;grid-column:2;grid-row:1}
+.svc:hover{transform:translateX(4px)}
+.svc strong{font-size:16px}
+.svc small{color:var(--muted);font-size:13px}
+.svc em{font-style:normal;color:var(--a2);font-size:13px;font-weight:600}
+.svc.on{border-color:var(--a);background:linear-gradient(135deg,rgba(139,92,246,.22),rgba(23,17,43,.7));box-shadow:0 0 28px rgba(139,92,246,.2)}
 
-/* проекты */
-.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
-.card{
-  background:var(--panel);border:1px solid var(--line);border-radius:14px;
-  padding:22px;display:flex;flex-direction:column;gap:12px;
+.panel{
+  background:var(--panel);border:1px solid var(--line);border-radius:16px;
+  padding:14px;display:flex;flex-direction:column;gap:12px;min-height:100%;
 }
-.card p{color:var(--muted);font-size:15px;flex:1}
-.card .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
-
-/* как заказать */
-.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:16px}
-.steps li{counter-increment:s;display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:start}
-.steps li::before{
-  content:counter(s);width:36px;height:36px;border-radius:50%;
-  border:1px solid var(--line);display:grid;place-items:center;
-  font-weight:700;color:var(--accent);font-size:15px;
+.panel.swap>*{animation:swap .35s ease both}
+@keyframes swap{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.shot{
+  aspect-ratio:16/9;border-radius:10px;overflow:hidden;position:relative;
+  background:linear-gradient(135deg,#3b1d7a,#7c3aed 55%,#c026d3);
+  display:grid;place-items:center;text-align:center;padding:12px;
 }
-.steps li span{padding-top:5px}
+.shot span{font-weight:700;font-size:20px;opacity:.9}
+.shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.panel:hover .shot img{transform:scale(1.04)}
+.info{display:flex;flex-direction:column;gap:6px;padding:0 4px 4px}
+.info h3{font-size:18px}
+.info p{color:var(--muted);font-size:14px}
+.info .btn{align-self:flex-start;margin-top:6px}
 
-/* контакты */
-.contacts{display:flex;flex-wrap:wrap;gap:12px}
-footer{padding:28px 0 40px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+/* заказ и контакты в одном блоке */
+.order{
+  border:1px solid var(--line);border-radius:16px;padding:22px;
+  background:linear-gradient(135deg,rgba(139,92,246,.14),rgba(23,17,43,.6));
+  display:grid;grid-template-columns:1fr auto;gap:18px 28px;align-items:center;margin-bottom:28px;
+}
+.order h2{font-size:20px;margin-bottom:12px}
+.steps{display:flex;flex-wrap:wrap;gap:8px 22px;margin:0;padding:0;list-style:none;counter-reset:s;color:var(--muted);font-size:14px}
+.steps li::before{counter-increment:s;content:counter(s);display:inline-grid;place-items:center;width:22px;height:22px;margin-right:8px;border-radius:50%;background:rgba(139,92,246,.25);color:#fff;font-size:12px;font-weight:700}
+.contacts{display:flex;flex-wrap:wrap;gap:10px}
+footer{color:var(--muted);font-size:13px;padding:0 0 28px}
 
-@media (max-width:600px){
-  body{font-size:16px}
-  section{padding:44px 0}
-  .top nav{gap:14px}
-  .top nav a:nth-child(n+3){display:none}
-  .services li{grid-template-columns:1fr}
-  .price{grid-column:1;grid-row:auto}
-  .actions .btn,.contacts .btn{flex:1 1 100%;text-align:center}
+@media (max-width:760px){
+  .top nav a:not(:last-child){display:none}
+  .work{grid-template-columns:1fr}
+  .list{display:grid;grid-template-columns:1fr 1fr}
+  .svc small{display:none}
+  .svc:hover{transform:none}
+  .order{grid-template-columns:1fr}
+  .actions .btn{flex:1 1 100%;text-align:center}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .hero h1,.hero p,.actions{opacity:1}
 }
 </style>
 </head>
 <body>
+<div class="glow g1"></div><div class="glow g2"></div>
 <div class="wrap">
 
   <header class="top">
-    <a href="#" class="logo">Phonker</a>
+    <a href="#" class="logo">Phonker<b>.</b></a>
     <nav>
-      <a href="#services">Услуги</a>
-      <a href="#projects">Проекты</a>
-      <a href="#order">Как заказать</a>
-      <a href="#contacts">Контакты</a>
+      <a href="#work">Услуги и работы</a>
+      <a href="#order">Заказать</a>
     </nav>
   </header>
 
-  <main>
-    <section class="hero" style="border-top:0">
-      <h1>Боты, сайты и мини-игры под ключ</h1>
-      <p>Пишу код с помощью нейросетей и довожу до рабочего результата: деплой, API, база данных.</p>
-      <div class="actions">
-        <a class="btn primary" href="https://t.me/bananas_ananass" target="_blank" rel="noopener">Написать в Telegram</a>
-        <a class="btn" href="https://kwork.ru/user/phonker_maloletni" target="_blank" rel="noopener">Профиль на Kwork</a>
-      </div>
-    </section>
+  <section class="hero">
+    <h1>Telegram-боты, сайты и игры. От идеи до запуска.</h1>
+    <p>Пишу код с помощью нейросетей и довожу до рабочего результата: деплой, API, база данных.</p>
+    <div class="actions">
+      <a class="btn p" href="https://t.me/bananas_ananass" target="_blank" rel="noopener">Написать в Telegram</a>
+      <a class="btn" href="https://kwork.ru/user/phonker_maloletni" target="_blank" rel="noopener">Профиль на Kwork</a>
+    </div>
+  </section>
 
-    <section id="services">
-      <h2>Что делаю</h2>
-      <ul class="services">
-        <li>
-          <h3>Telegram-боты и скрипты</h3>
-          <span class="price">[цена от ... ₽]</span>
-          <p>Парсеры, загрузчики, автоматизация рутины.</p>
-        </li>
-        <li>
-          <h3>Сайт-расписание для группы, школы, кружка</h3>
-          <span class="price">[цена от ... ₽]</span>
-          <p>Мини-приложение по образцу Study OS.</p>
-        </li>
-        <li>
-          <h3>Мини-игры в браузере</h3>
-          <span class="price">[цена от ... ₽]</span>
-          <p>HTML5 Canvas и JavaScript, работают без установки.</p>
-        </li>
-        <li>
-          <h3>Доработка проектов, написанных нейросетью</h3>
-          <span class="price">[цена от ... ₽]</span>
-          <p>Деплой, исправление багов, подключение API.</p>
-        </li>
-      </ul>
-    </section>
+  <section class="work" id="work" aria-label="Услуги и примеры работ">
+    <div class="list" role="tablist">
+      <button class="svc on" data-k="bots" role="tab"><strong>Telegram-боты и скрипты</strong><small>Парсеры, загрузчики, автоматизация</small><em>[цена от ... ₽]</em></button>
+      <button class="svc" data-k="site" role="tab"><strong>Сайт-расписание</strong><small>Для группы, школы, кружка</small><em>[цена от ... ₽]</em></button>
+      <button class="svc" data-k="game" role="tab"><strong>Мини-игры в браузере</strong><small>HTML5 Canvas и JavaScript</small><em>[цена от ... ₽]</em></button>
+      <button class="svc" data-k="fix" role="tab"><strong>Доработка проектов от нейросети</strong><small>Деплой, баги, подключение API</small><em>[цена от ... ₽]</em></button>
+    </div>
+    <div class="panel" id="panel" aria-live="polite"></div>
+  </section>
 
-    <section id="projects">
-      <h2>Мои проекты</h2>
-      <div class="projects">
-        <article class="card">
-          <h3>Study OS</h3>
-          <p>Учебная веб-система в стиле Windows XP: расписание, конспекты в Markdown, погода и пробки через API, админка, журнал посещаемости, общая база.</p>
-          <div class="row">
-            <a class="btn primary small" href="https://phonker-dev.github.io/Study_OS/" target="_blank" rel="noopener">Открыть</a>
-          </div>
-        </article>
-        <article class="card">
-          <h3>Media Loader</h3>
-          <p>Быстрый консольный загрузчик видео на Go. Многопоточность, склейка аудио и видео.</p>
-          <div class="row">
-            <a class="btn primary small" href="https://github.com/phonker-dev/phonker-media-loader" target="_blank" rel="noopener">Открыть</a>
-            <a class="btn small" href="https://github.com/phonker-dev/phonker-media-loader" target="_blank" rel="noopener">GitHub</a>
-          </div>
-        </article>
-        <article class="card">
-          <h3>Garden War: Merge and Conquer</h3>
-          <p>Браузерная tower-defense и merge-игра на HTML5 Canvas и JavaScript.</p>
-          <div class="row">
-            <a class="btn primary small" href="https://phonker-dev.itch.io/garden-war" target="_blank" rel="noopener">Открыть</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section id="order">
+  <section class="order" id="order">
+    <div>
       <h2>Как заказать</h2>
       <ol class="steps">
-        <li><span>Напишите в Telegram или на Kwork и опишите задачу.</span></li>
-        <li><span>Обсуждаем сроки и цену: [цена от ... ₽], точную называю после уточнения задачи.</span></li>
-        <li><span>Делаю и показываю результат.</span></li>
-        <li><span>Передаю готовый проект: код, деплой, доступы.</span></li>
+        <li>Пишете задачу</li>
+        <li>Обсуждаем срок и цену</li>
+        <li>Делаю и показываю</li>
+        <li>Передаю код и доступы</li>
       </ol>
-    </section>
-
-    <section id="contacts">
-      <h2>Контакты</h2>
-      <div class="contacts">
-        <a class="btn primary" href="https://t.me/bananas_ananass" target="_blank" rel="noopener">Telegram @bananas_ananass</a>
-        <a class="btn" href="https://kwork.ru/user/phonker_maloletni" target="_blank" rel="noopener">Kwork</a>
-        <a class="btn" href="https://github.com/phonker-dev" target="_blank" rel="noopener">GitHub</a>
-      </div>
-    </section>
-  </main>
+    </div>
+    <div class="contacts">
+      <a class="btn p" href="https://t.me/bananas_ananass" target="_blank" rel="noopener">Telegram</a>
+      <a class="btn" href="https://kwork.ru/user/phonker_maloletni" target="_blank" rel="noopener">Kwork</a>
+      <a class="btn" href="https://github.com/phonker-dev" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </section>
 
   <footer>© 2026 Phonker</footer>
 </div>
+
+<script>
+// Пул работ. Скрины положи в папку img/ (имена ниже). Нет файла — покажется заглушка.
+const W = {
+  bots:{t:'Media Loader',img:'img/media-loader.jpg',
+    d:'Быстрый консольный загрузчик видео на Go. Многопоточность, склейка аудио и видео.',
+    url:'https://github.com/phonker-dev/phonker-media-loader',b:'Открыть на GitHub'},
+  site:{t:'Study OS',img:'img/study-os.jpg',
+    d:'Учебная система в стиле Windows XP: расписание, конспекты в Markdown, погода и пробки через API, админка, журнал посещаемости, общая база.',
+    url:'https://phonker-dev.github.io/Study_OS/',b:'Открыть'},
+  game:{t:'Garden War: Merge and Conquer',img:'img/garden-war.jpg',
+    d:'Браузерная tower-defense и merge-игра на HTML5 Canvas и JavaScript.',
+    url:'https://phonker-dev.itch.io/garden-war',b:'Играть'},
+  fix:{t:'[пример работы]',img:'img/fix.jpg',
+    d:'Беру проект, написанный нейросетью, и довожу до рабочего состояния. [добавь пример или скрин]',
+    url:'',b:''}
+};
+const panel = document.getElementById('panel');
+const btns = document.querySelectorAll('.svc');
+
+function show(k){
+  const w = W[k];
+  btns.forEach(b => b.classList.toggle('on', b.dataset.k === k));
+  panel.innerHTML =
+    '<div class="shot"><span>'+w.t+'</span><img src="'+w.img+'" alt="'+w.t+'" loading="lazy" onerror="this.remove()"></div>'+
+    '<div class="info"><h3>'+w.t+'</h3><p>'+w.d+'</p>'+
+    (w.url ? '<a class="btn p" href="'+w.url+'" target="_blank" rel="noopener">'+w.b+'</a>' : '')+'</div>';
+  panel.classList.remove('swap'); void panel.offsetWidth; panel.classList.add('swap');
+}
+btns.forEach(b => {
+  b.addEventListener('click', () => show(b.dataset.k));
+  b.addEventListener('focus', () => show(b.dataset.k));
+  b.addEventListener('mouseenter', () => { if (matchMedia('(hover:hover)').matches) show(b.dataset.k); });
+});
+show('bots');
+</script>
 </body>
 </html>
