@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Phonker — Telegram-боты, сайты и игры</title>
-<meta name="description" content="Telegram-боты, сайты-расписания, браузерные игры. От идеи до запуска: деплой, API, база данных.">
+<title>Phonker — сайты, веб-приложения и браузерные игры</title>
+<meta name="description" content="Лендинги, сайты-расписания, веб-приложения и браузерные игры. От идеи до публикации: адаптивная вёрстка, API, база данных, хостинг.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236d63f5'/%3E%3Cpath d='M10 24V8h7a5 5 0 0 1 0 10h-7' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E">
 <style>
 :root{
@@ -134,20 +134,20 @@ footer{color:var(--muted);font-size:13px;padding:0 0 28px}
   </header>
 
   <section class="hero">
-    <h1>Telegram-боты, сайты и игры. От идеи до запуска.</h1>
-    <p>Пишу код с помощью нейросетей и довожу до рабочего результата: деплой, API, база данных.</p>
+    <h1>Сайты, веб-приложения и браузерные игры. От идеи до запуска.</h1>
+    <p>Делаю проекты с помощью Claude Code и довожу до рабочего результата: адаптивная вёрстка, подключение API и базы данных, публикация в интернете. Проверяю всё на компьютере и телефоне перед сдачей.</p>
     <div class="actions">
-      <a class="btn p" href="https://t.me/bananas_ananass" target="_blank" rel="noopener">Написать в Telegram</a>
+      <a class="btn p" href="https://t.me/phonker_dev" target="_blank" rel="noopener">Написать в Telegram</a>
       <a class="btn" href="https://kwork.ru/user/phonker_maloletni" target="_blank" rel="noopener">Профиль на Kwork</a>
     </div>
   </section>
 
   <section class="work" id="work" aria-label="Услуги и примеры работ">
     <div class="list" role="tablist">
-      <button class="svc on" data-k="bots" role="tab"><strong>Telegram-боты и скрипты</strong><small>Парсеры, загрузчики, автоматизация</small><em>[цена от ... ₽]</em></button>
-      <button class="svc" data-k="site" role="tab"><strong>Сайт-расписание</strong><small>Для группы, школы, кружка</small><em>[цена от ... ₽]</em></button>
-      <button class="svc" data-k="game" role="tab"><strong>Мини-игры в браузере</strong><small>HTML5 Canvas и JavaScript</small><em>[цена от ... ₽]</em></button>
-      <button class="svc" data-k="fix" role="tab"><strong>Доработка проектов от нейросети</strong><small>Деплой, баги, подключение API</small><em>[цена от ... ₽]</em></button>
+      <button class="svc on" data-k="land" role="tab"><strong>Лендинг или сайт-визитка</strong><small>Адаптивная вёрстка, публикация, домен</small><em>от 2 000 ₽</em></button>
+      <button class="svc" data-k="site" role="tab"><strong>Сайт-расписание и веб-приложения</strong><small>Для группы, школы, кружка, с API и базой</small><em>от 4 000 ₽</em></button>
+      <button class="svc" data-k="game" role="tab"><strong>Мини-игры в браузере</strong><small>HTML5 Canvas и JavaScript</small><em>от 5 000 ₽</em></button>
+      <button class="svc" data-k="tool" role="tab"><strong>Скрипты и утилиты</strong><small>Загрузчики, мелкая автоматизация</small><em>от 1 500 ₽</em></button>
     </div>
     <div class="panel" id="panel" aria-live="polite"></div>
   </section>
@@ -162,7 +162,7 @@ footer{color:var(--muted);font-size:13px;padding:0 0 28px}
     <div class="bar">
       <h2>Как заказать</h2>
       <div class="contacts">
-        <a class="btn p" href="https://t.me/bananas_ananass" target="_blank" rel="noopener">Telegram</a>
+        <a class="btn p" href="https://t.me/phonker_dev" target="_blank" rel="noopener">Telegram</a>
         <a class="btn" href="https://kwork.ru/user/phonker_maloletni" target="_blank" rel="noopener">Kwork</a>
         <a class="btn" href="https://github.com/phonker-dev" target="_blank" rel="noopener">GitHub</a>
       </div>
@@ -173,20 +173,19 @@ footer{color:var(--muted);font-size:13px;padding:0 0 28px}
 </div>
 
 <script>
-// Пул работ. Скрины положи в папку img/ (имена ниже). Нет файла — покажется заглушка.
 const W = {
-  bots:{t:'Media Loader',img:'img/media-loader.jpg',
-    d:'Быстрый консольный загрузчик видео на Go. Многопоточность, склейка аудио и видео.',
-     b:'SOON'},
+  land:{t:'Это портфолио',img:'img/portfolio.png',
+    d:'Одностраничный сайт с адаптивной вёрсткой и интерактивным списком работ. Сделан на HTML, CSS и JavaScript, опубликован на GitHub Pages.',
+    url:'https://github.com/phonker-dev/portfolio',b:'Код на GitHub'},
   site:{t:'Study OS',img:'img/study-os.png',
     d:'Учебная система в стиле Windows XP: расписание, конспекты в Markdown, погода и пробки через API, админка, журнал посещаемости, общая база.',
     url:'https://phonker-dev.github.io/Study_OS/',b:'Открыть'},
   game:{t:'Garden War: Merge and Conquer',img:'img/garden-war.png',
-    d:'Браузерная tower-defense и merge-игра на HTML5 Canvas и JavaScript.',
+    d:'Браузерная tower-defense и merge-игра на HTML5 Canvas и JavaScript: дерево прокачки, сохранения, звук.',
     url:'https://phonker-dev.itch.io/garden-war',b:'Играть'},
-  fix:{t:'[пример работы]',img:'img/fix.jpg',
-    d:'Беру проект, написанный нейросетью, и довожу до рабочего состояния. [добавь пример или скрин]',
-    url:'',b:''}
+  tool:{t:'Phonker Loader',img:'img/media-loader.jpg',
+    d:'Консольная утилита на Go для скачивания видео и музыки с YouTube и Twitch. Собрана в один exe-файл, ничего не нужно устанавливать.',
+    url:'https://github.com/phonker-dev/phonker-loader',b:'Код на GitHub'}
 };
 const panel = document.getElementById('panel');
 const btns = document.querySelectorAll('.svc');
@@ -205,7 +204,7 @@ btns.forEach(b => {
   b.addEventListener('focus', () => show(b.dataset.k));
   b.addEventListener('mouseenter', () => { if (matchMedia('(hover:hover)').matches) show(b.dataset.k); });
 });
-show('bots');
+show('land');
 </script>
 </body>
 </html>
